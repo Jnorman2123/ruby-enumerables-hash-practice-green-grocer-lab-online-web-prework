@@ -26,10 +26,11 @@ def apply_coupons(cart, coupons)
     if cart.has_key?(item)
       if cart[item][:count] >= coupon[:num] && !cart.has_key?(item_with_coupon)
         cart[item_with_coupon] = {price: coupon[:cost] / coupon[:num], clearance: cart[item][:clearance], count: coupon[:num]}
+        cart[item][:count] -= coupon[:num]
       elsif cart[item][:count] >= coupon[:num] && cart.has_key?(item_with_coupon)
         cart[item_with_coupon][:count] += coupon[:num]
+        cart[item][:count] -= coupon[:num]
       end 
-      cart[item][:count] -= coupon[:num]
     end 
   end 
   cart
@@ -47,8 +48,7 @@ def checkout(cart, coupons)
   applied_coupons = apply_coupons(hash_cart, coupons)
   applied_discount = apply_clearance(applied_coupons)
   total = applied_discount.reduce(0) { |acc, (key, value)| acc += (value[:count] * value[:price])}
-  total -= total * 0.1 if total > 100
-  total
+  total > 100 ? 
 end 
 
 
