@@ -12,5 +12,6 @@ def consolidate_cart(cart)
       final_hash[element_stats][:count] = 1 
     end 
   end 
+  final_hash
 end 
 
