@@ -10,7 +10,7 @@ def consolidate_cart(cart)
       element_stats[:count] += 1 
     else 
       final_hash[element_name] = {
-        cound: 1, 
+        count: 1, 
         price: element_stats[:price],
         clearance: element_stats[:clearance]
       }
